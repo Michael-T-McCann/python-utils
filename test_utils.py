@@ -22,6 +22,7 @@ def test_mnls():
     b = np.array([1, 0])
 
     np_solution = np.linalg.pinv(A) @ b
-    iterative_solution = utils.mnls(A, b)
+    iterative_solution = utils.mnls(lambda x: A@x, lambda x: A.T@x,
+                                    b, np.zeros(A.shape[1]))
 
     assert np.allclose(np_solution, iterative_solution)
